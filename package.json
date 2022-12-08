@@ -1,0 +1,28 @@
+{
+  "name": "cacau-trybe-exercise",
+  "version": "1.0.0",
+  "description": "exercício de TDD de uma API",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --exit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mathdio/cacau-trybe-exercise.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mathdio/cacau-trybe-exercise/issues"
+  },
+  "homepage": "https://github.com/mathdio/cacau-trybe-exercise#readme",
+  "devDependencies": {
+    "chai": "4.3",
+    "chai-http": "4.3",
+    "mocha": "10.0"
+  },
+  "dependencies": {
+    "express": "4.17"
+  }
+}
