@@ -14,6 +14,17 @@ app.get('/chocolates/total', async (req, res) => {
   res.status(200).json({ totalChocolates: chocolates.length });
 });
 
+app.get('/chocolates/search', async (req, res) => {
+  const { name } = req.query;
+  const chocolates = await cacauTrybe.getChocolatesByName(name);
+
+  if (chocolates.length === 0) {
+    res.status(404).json({ message: 'Chocolates not found' });
+  }
+
+  res.status(200).json(chocolates);
+});
+
 app.get('/chocolates/:id', async (req, res) => {
   const { id } = req.params;
   const chocolate = await cacauTrybe.getChocolateById(Number(id));
