@@ -114,3 +114,15 @@ describe('usando método GET em /chocolates/brand/:brandId para buscar brandId 1
     expect(response.body.chocolates).to.deep.equal(output);
   });
 });
+
+describe('usando método GET em /chocolates/total para buscar a quantidade total de chocolates', function () {
+  it('retorna 4 como quantidade total de chocolates', async function () {
+    const response = await chai.request(app).get('/chocolates/total');
+    expect(response.status).to.be.equal(200);
+
+    const output = {
+      totalChocolates: 4
+    };
+    expect(response.body).to.deep.equal(output);
+  });
+});
