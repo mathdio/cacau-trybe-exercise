@@ -127,7 +127,7 @@ describe('usando método GET em /chocolates/total para buscar a quantidade total
   });
 });
 
-describe('usando método GET em /chocolates/search para buscar chocolates com determinada palavra', function () {
+describe('usando método GET em /chocolates/search para buscar chocolates com o termo "Mo"', function () {
   it('retornar os chocolates que contém o termo "Mo"', async function () {
     const response = await chai.request(app).get('/chocolates/search?name=Mo');
     expect(response.status).to.be.equal(200);
@@ -144,6 +144,18 @@ describe('usando método GET em /chocolates/search para buscar chocolates com de
         "brandId": 3
       }
     ];
+    expect(response.body).to.deep.equal(output);
+  });
+});
+
+describe('usando método GET em /chocolates/search para buscar chocolates com o termo "Ma"', function () {
+  it('retorna status 404 com a mensagem "Chocolates not found"', async function () {
+    const response = await chai.request(app).get('/chocolates/search?name=Ma');
+    expect(response.status).to.be.equal(404);
+
+    const output = {
+      message: 'Chocolates not found'
+    };
     expect(response.body).to.deep.equal(output);
   });
 });
