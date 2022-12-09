@@ -71,3 +71,46 @@ describe("usando metódo GET em /chocolates", function () {
     expect(response.body.chocolates).to.deep.equal(output);
   });
 });
+
+describe('usando método GET em /chocolates/:id para buscar o ID 4', function () {
+  it('retorna o chocolate Mounds', async function () {
+    const response = await chai.request(app).get('/chocolates/4');
+    expect(response.status).to.be.equal(200);
+
+    expect(response.body.chocolate).to.deep.equal(
+      {
+        "id": 4,
+        "name": "Mounds",
+        "brandId": 3
+      });
+  });
+});
+
+describe('usando método GET em /chocolates/:id para buscar o ID 99', function () {
+  it('retorna status 404 com a mensagem "Chocolate not found"', async function () {
+    const response = await chai.request(app).get('/chocolates/99');
+    expect(response.status).to.be.equal(404);
+    expect(response.body).to.deep.equal({ message: 'Chocolate not found' });
+  });
+});
+
+describe('usando método GET em /chocolates/brand/:brandId para buscar brandId 1', function () {
+  it('retorna os chocolates da marca Lindt & Sprungli', async function () {
+    const response = await chai.request(app).get('/chocolates/brand/1');
+    expect(response.status).to.be.equal(200);
+
+    const output = [
+      {
+          "id": 1,
+          "name": "Mint Intense",
+          "brandId": 1
+      },
+      {
+          "id": 2,
+          "name": "White Coconut",
+          "brandId": 1
+      }
+    ];
+    expect(response.body.chocolates).to.deep.equal(output);
+  });
+});
