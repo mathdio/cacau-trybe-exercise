@@ -14,7 +14,7 @@ const readCacauTrybeFile = async () => {
 const writeCacauTrybeFile = async (content) => {
   try {
     const filePath = join(__dirname, path);
-    await fs.writeFile(filePath, JSON.stringify(content));
+    await fs.writeFile(filePath, JSON.stringify(content, null, 2));
   } catch (error) {
     console.log(error.message);
     return null;

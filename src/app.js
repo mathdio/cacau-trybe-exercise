@@ -3,6 +3,8 @@ const cacauTrybe = require('./cacauTrybe');
 
 const app = express();
 
+app.use(express.json())
+
 app.get('/chocolates', async (req, res) => {
   const chocolates = await cacauTrybe.getAllChocolates();
   res.status(200).json({ chocolates });
@@ -40,9 +42,9 @@ app.put('/chocolates/:id', async (req, res) => {
   const { name, brandId } = req.body;
   const updatedChocolate = await cacauTrybe.updateChocolate(Number(id), { name, brandId });
 
-  // if (!updatedChocolate) {
-  //   res.status(404).json({ message: 'Chocolate not found' });
-  // }
+  if (!updatedChocolate) {
+    res.status(404).json({ message: 'Chocolate not found' });
+  }
 
   res.status(200).json({ chocolate: updatedChocolate });
 });

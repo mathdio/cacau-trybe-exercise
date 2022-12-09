@@ -47,6 +47,45 @@ const mockFile = JSON.stringify({
   ],
 });
 
+const mockFileUpdated = {
+  "brands": [
+    {
+      "id": 1,
+      "name": "Lindt & Sprungli"
+    },
+    {
+      "id": 2,
+      "name": "Ferrero"
+    },
+    {
+      "id": 3,
+      "name": "Ghirardelli"
+    }
+  ],
+  "chocolates": [
+    {
+      "id": 1,
+      "name": "Mint Pretty Good",
+      "brandId": 2
+    },
+    {
+      "id": 2,
+      "name": "White Coconut",
+      "brandId": 1
+    },
+    {
+      "id": 3,
+      "name": "Mon Chéri",
+      "brandId": 2
+    },
+    {
+      "id": 4,
+      "name": "Mounds",
+      "brandId": 3
+    }
+  ]
+};
+
 describe("Testando a API Cacau Trybe", function () {
   beforeEach(function () {
     sinon.stub(fs.promises, 'readFile').resolves(mockFile);
@@ -165,10 +204,10 @@ describe('usando método PUT em /chocolates/:id para atualizar o chocolate de ID
     const response = await chai
       .request(app)
       .put('/chocolates/1')
-      .send({
-      "name": "Mint Pretty Good",
-      "brandId": 2
-    });
+      .send({ 
+        "name": "Mint Pretty Good",
+        "brandId": 2
+      });
     expect(response.status).to.be.equal(200);
 
     const output = {
@@ -178,6 +217,22 @@ describe('usando método PUT em /chocolates/:id para atualizar o chocolate de ID
         "brandId": 2
       }
     };
+    expect(response.body).to.deep.equal(output);
+  });
+});
+
+describe('usando método PUT em /chocolates/:id para atualizar o chocolate de ID 99', function () {
+  it('retorna status 404 com a mensagem "Chocolate not found"', async function () {
+    const response = await chai
+      .request(app)
+      .put('/chocolates/99')
+      .send({ 
+        "name": "Mint Pretty Good",
+        "brandId": 2
+      });
+    expect(response.status).to.be.equal(404);
+
+    const output = { message: 'Chocolate not found' };
     expect(response.body).to.deep.equal(output);
   });
 });
