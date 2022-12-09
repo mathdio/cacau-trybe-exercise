@@ -159,3 +159,25 @@ describe('usando método GET em /chocolates/search para buscar chocolates com o 
     expect(response.body).to.deep.equal(output);
   });
 });
+
+describe('usando método PUT em /chocolates/:id para atualizar o chocolate de ID 1', function () {
+  it('retorna informações atualizadas do chocolate', async function () {
+    const response = await chai
+      .request(app)
+      .put('/chocolates/1')
+      .send({
+      "name": "Mint Pretty Good",
+      "brandId": 2
+    });
+    expect(response.status).to.be.equal(200);
+
+    const output = {
+      "chocolate": { 
+        "id": 1,
+        "name": "Mint Pretty Good",
+        "brandId": 2
+      }
+    };
+    expect(response.body).to.deep.equal(output);
+  });
+});
