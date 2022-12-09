@@ -126,3 +126,24 @@ describe('usando método GET em /chocolates/total para buscar a quantidade total
     expect(response.body).to.deep.equal(output);
   });
 });
+
+describe('usando método GET em /chocolates/search para buscar chocolates com determinada palavra', function () {
+  it('retornar os chocolates que contém o termo "Mo"', async function () {
+    const response = await chai.request(app).get('/chocolates/search?name=Mo');
+    expect(response.status).to.be.equal(200);
+
+    const output = [
+      {
+        "id": 3,
+        "name": "Mon Chéri",
+        "brandId": 2
+      },
+      {
+        "id": 4,
+        "name": "Mounds",
+        "brandId": 3
+      }
+    ];
+    expect(response.body).to.deep.equal(output);
+  });
+});
